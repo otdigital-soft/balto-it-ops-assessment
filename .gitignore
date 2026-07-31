@@ -34,11 +34,6 @@ Desktop.ini
 .vscode/
 *.swp
 
-# Local PDF export / assessment brief (optional; keep out of public repo)
-IT_Ops_Engineer_Skills_Test.pdf
-*.local.pdf
-submission/*.pdf
-
 # Accidental key dumps
 *api_key*
 *apikey*
