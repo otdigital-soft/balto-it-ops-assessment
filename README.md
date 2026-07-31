@@ -1,3 +1,0 @@
-# Balto IT Ops Assessment
-
-
