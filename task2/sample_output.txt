@@ -1,8 +1,8 @@
 Balto IT Ops — Day-1 onboarding plan
-Generated: 2026-07-31T17:30:06+00:00
+Generated: 2026-07-31T18:22:23+00:00
 CSV: F:\Tests\Frontier\task2\new_hires.csv
 Mapping: F:\Tests\Frontier\task2\role_mapping.yaml
-LLM: dry-run template
+LLM: openai
 Summary: 3 clean | 2 bad input | 2 mapping flags
 
 ========================================================================
@@ -39,7 +39,11 @@ Mapping flags:
   - (none)
 
 Slack welcome draft:
-  [DRY-RUN TEMPLATE] Hey Priya — welcome to Balto! I'm IT Ops. Your manager is vp-eng@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+  Hi Priya,
+
+  Welcome to Balto! We're thrilled to have you join our Engineering team as a Senior Engineer. Your manager, [Manager's Name], can be reached at vp-eng@balto.ai if you have any questions. Don’t forget to check out the Day-1 IT checklist in #it-help to get set up. A quick tip: remember that Okta SSO is your front door for access—please avoid messaging the founder for help with that.
+
+  Looking forward to working together!
 
 Mock API calls (payload shapes):
   [
@@ -155,7 +159,11 @@ Mapping flags:
   - (none)
 
 Slack welcome draft:
-  [DRY-RUN TEMPLATE] Hey Marcus — welcome to Balto! I'm IT Ops. Your manager is vp-sales@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+  Hi Marcus,
+
+  Welcome to Balto! We're thrilled to have you join our Sales team as an Account Executive. Your manager, [Manager's Name], can be reached at vp-sales@balto.ai if you have any questions. Don’t forget to check out the Day-1 IT checklist in #it-help to get set up. A quick tip: use Okta SSO as your front door for access—please avoid DMing the founder for access requests. 
+
+  Looking forward to seeing you thrive here!
 
 Mock API calls (payload shapes):
   [
@@ -273,7 +281,11 @@ Mapping flags:
   - (none)
 
 Slack welcome draft:
-  [DRY-RUN TEMPLATE] Hey Lena — welcome to Balto! I'm IT Ops. Your manager is coo@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+  Hi Lena,
+
+  Welcome to Balto! We're thrilled to have you join us as our new People Ops Manager. Your manager is [Manager's Name], and you can reach them at coo@balto.ai for any questions. Don’t forget to check out the Day-1 IT checklist in #it-help to get set up smoothly. A quick tip: use Okta SSO as your front door for all access—please don’t DM the founder for any permissions.
+
+  Looking forward to working together!
 
 Mock API calls (payload shapes):
   [
@@ -400,7 +412,13 @@ Mapping flags:
   - AMBIGUOUS_OKTA_GROUPS: role maps to multiple historically plausible groups ['eng-staff-v2', 'eng-staff-final-NEW']. Do NOT auto-add. IT must pick one and clean up the duplicate in Okta (temp-final-v2 hygiene).
 
 Slack welcome draft:
-  [DRY-RUN TEMPLATE] Hey Alex — welcome to Balto! I'm IT Ops. Your manager is vp-eng@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+  Hi Alex,
+
+  Welcome to Balto! We're thrilled to have you join our Engineering team as a Staff Engineer. Your manager is [Manager's Name], and you can reach them at vp-eng@balto.ai for any questions. 
+
+  As you get started, be sure to check out the Day-1 IT checklist in #it-help. A quick tip: use Okta SSO as your front door for all access—please avoid DMing the founder for any access requests. 
+
+  Looking forward to seeing your contributions!
 
 Mock API calls (payload shapes):
   [
@@ -513,7 +531,11 @@ Mapping flags:
   - NO_ROLE_MAPPING: role 'Growth Hacker' is not in role_mapping.yaml — bail loudly rather than defaulting to a broad group.
 
 Slack welcome draft:
-  [DRY-RUN TEMPLATE] Hey Sam — welcome to Balto! I'm IT Ops. Your manager is cmo@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+  Hi Sam, 
+
+  Welcome to Balto! We’re excited to have you join our Marketing team as a Growth Hacker. Your manager is our CMO, and you can reach them at cmo@balto.ai for any questions. Be sure to check out the Day-1 IT checklist in #it-help to get set up. A quick tip: use Okta SSO as your front door for access—please don’t DM the founder for help with that. 
+
+  Looking forward to seeing the great things you’ll accomplish here!
 
 Mock API calls (payload shapes):
   [

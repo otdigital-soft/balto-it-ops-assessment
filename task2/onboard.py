@@ -28,9 +28,20 @@ from typing import Any
 import yaml
 
 try:
+    from dotenv import load_dotenv
+except ImportError:  # pragma: no cover
+    load_dotenv = None  # type: ignore
+
+try:
     from dateutil import parser as date_parser
 except ImportError:  # pragma: no cover
     date_parser = None  # type: ignore
+
+# Load .env from task2/ or repo root (gitignored)
+if load_dotenv is not None:
+    _here = Path(__file__).resolve().parent
+    load_dotenv(_here / ".env")
+    load_dotenv(_here.parent / ".env")
 
 
 REQUIRED_FIELDS = (

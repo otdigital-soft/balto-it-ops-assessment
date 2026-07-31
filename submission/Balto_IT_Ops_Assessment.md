@@ -40,7 +40,7 @@ I used Cursor (Composer) as a build partner under my direction: I specified Balt
 | Onboarding script (2) | `task2/onboard.py` + `task2/role_mapping.yaml` + `task2/new_hires.csv` |
 | Sample run output (2) | `task2/sample_output.txt` |
 | Fixed access automation (3) | `task3/fixed_access_grant.py` |
-| GitHub / Gist (recommended) | _paste public repo or gist URL_ |
+| GitHub / Gist (recommended) | https://github.com/otdigital-soft/balto-it-ops-assessment |
 
 ---
 
@@ -119,7 +119,16 @@ I’d build **Software Access** first after the Form — it kills the founder-DM
 
 ### Workflow diagrams
 
+> In Google Doc: replace each **[INSERT IMAGE: …]** block below with the matching PNG from the `diagrams/` folder.
+
 #### 1) Software Access
+
+**[INSERT IMAGE: `diagrams/Software Access.png`]**
+
+![Software Access workflow](../diagrams/Software%20Access.png)
+
+<details>
+<summary>Mermaid source (optional)</summary>
 
 ```mermaid
 flowchart TD
@@ -138,7 +147,16 @@ flowchart TD
   D --> L[Human IT]
 ```
 
+</details>
+
 #### 2) Admin / Elevated Access
+
+**[INSERT IMAGE: `diagrams/Admin & Elevated Access.png`]**
+
+![Admin / Elevated Access workflow](../diagrams/Admin%20%26%20Elevated%20Access.png)
+
+<details>
+<summary>Mermaid source (optional)</summary>
 
 ```mermaid
 flowchart TD
@@ -154,7 +172,16 @@ flowchart TD
   H --> I[Auto-revoke on end date]
 ```
 
+</details>
+
 #### 3) Software Assistance / Bug
+
+**[INSERT IMAGE: `diagrams/Software Assistance & Bug.png`]**
+
+![Software Assistance / Bug workflow](../diagrams/Software%20Assistance%20%26%20Bug.png)
+
+<details>
+<summary>Mermaid source (optional)</summary>
 
 ```mermaid
 flowchart TD
@@ -168,7 +195,16 @@ flowchart TD
   G -->|No| I[IT triage]
 ```
 
+</details>
+
 #### 4) Hardware Request
+
+**[INSERT IMAGE: `diagrams/Hardware Request.png`]**
+
+![Hardware Request workflow](../diagrams/Hardware%20Request.png)
+
+<details>
+<summary>Mermaid source (optional)</summary>
 
 ```mermaid
 flowchart TD
@@ -184,7 +220,16 @@ flowchart TD
   C --> F
 ```
 
+</details>
+
 #### 5) New Software Tool Evaluation
+
+**[INSERT IMAGE: `diagrams/New Software Tool Evaluation.png` — file not in folder yet; add screenshot from mermaid.live]**
+
+![New Software Tool Evaluation workflow](../diagrams/New%20Software%20Tool%20Evaluation.png)
+
+<details>
+<summary>Mermaid source (optional)</summary>
 
 ```mermaid
 flowchart TD
@@ -202,6 +247,8 @@ flowchart TD
   I --> L
   K --> L
 ```
+
+</details>
 
 ---
 
