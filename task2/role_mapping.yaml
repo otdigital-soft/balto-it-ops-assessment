@@ -1,0 +1,91 @@
+# Role / department → Okta group mapping for Balto (assumes messy RBAC hygiene).
+# Groups are illustrative of a real-world Okta org that grew organically.
+#
+# Resolution order used by onboard.py:
+#   1. Exact role match in `roles`
+#   2. Department baseline in `departments`
+#   3. Ambiguous / missing → FLAG (never silent broadest-group default)
+
+base_groups:
+  - All-Employees
+  - Google-Workspace-Users
+
+departments:
+  Engineering:
+    okta_groups: [eng-all, eng-github-readers]
+    google_groups: [eng@balto.ai]
+    shared_drives: [Engineering Shared]
+    iru_blueprint: Engineering-Standard
+    workspace_license: Business Plus
+  Sales:
+    okta_groups: [sales-all, sales-crm-users]
+    google_groups: [sales@balto.ai]
+    shared_drives: [Sales Shared]
+    iru_blueprint: Sales-Standard
+    workspace_license: Business Standard
+  People:
+    okta_groups: [people-ops, hr-sensitive-readers]
+    google_groups: [people@balto.ai]
+    shared_drives: [People Shared]
+    iru_blueprint: People-Standard
+    workspace_license: Business Plus
+  Customer Success:
+    okta_groups: [cs-all, cs-zendesk-agents]
+    google_groups: [cs@balto.ai]
+    shared_drives: [Customer Success Shared]
+    iru_blueprint: CS-Standard
+    workspace_license: Business Standard
+
+roles:
+  Senior Engineer:
+    okta_groups: [eng-all, eng-github-writers, eng-staging-ssh]
+    requires_manager_approval:
+      - eng-prod-ssh
+      - aws-power-users
+  Staff Engineer:
+    # Ambiguous: two plausible groups exist historically
+    okta_groups: [eng-all, eng-github-writers, eng-staging-ssh]
+    ambiguous_okta_groups:
+      - eng-staff-v2
+      - eng-staff-final-NEW
+    requires_manager_approval:
+      - eng-prod-ssh
+      - aws-power-users
+      - okta-app-admins
+  Account Executive:
+    okta_groups: [sales-all, sales-crm-users, sales-outreach]
+    requires_manager_approval:
+      - sales-admin
+      - gong-admins
+  People Ops Manager:
+    okta_groups: [people-ops, hr-sensitive-readers, people-managers]
+    requires_manager_approval:
+      - okta-hr-admins
+      - bamboo-hr-admins
+      - payroll-full-access
+  Customer Success Manager:
+    okta_groups: [cs-all, cs-zendesk-agents]
+    requires_manager_approval:
+      - cs-admin
+      - production-read-replicas
+
+# Country-specific considerations (flagged, not auto-actioned)
+countries:
+  US:
+    notes:
+      - Standard domestic laptop ship (~3–5 business days).
+      - No additional data-residency constraint beyond Balto US primary region.
+  IN:
+    notes:
+      - Laptop ship lead time 10–15 business days; confirm Iru enrollment window with manager.
+      - Prefer India-local data handling for HR files; avoid syncing People Shared Drive contents to personal devices.
+      - Confirm export-control status is N/A for standard SaaS engineer tooling (flag if role gains crypto/export-controlled libs).
+  DE:
+    notes:
+      - GDPR applies; confirm Workspace data region / EU processing addendum.
+      - Prefer EU-resident processing for HR/People systems where available.
+      - Works council / local employment onboarding checklist may apply — loop People Ops.
+  IE:
+    notes:
+      - GDPR applies (EU).
+      - Confirm laptop ship from EU depot vs US to avoid customs delay.

@@ -1,0 +1,44 @@
+# Secrets / credentials — never commit
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.key
+credentials.json
+client_secret*.json
+token.json
+**/secrets/
+**/ScriptProperties*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Node / local tooling
+node_modules/
+package-lock.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+
+# Local PDF export / assessment brief (optional; keep out of public repo)
+IT_Ops_Engineer_Skills_Test.pdf
+*.local.pdf
+submission/*.pdf
+
+# Accidental key dumps
+*api_key*
+*apikey*

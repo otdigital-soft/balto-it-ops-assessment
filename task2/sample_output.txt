@@ -1,0 +1,581 @@
+Balto IT Ops — Day-1 onboarding plan
+Generated: 2026-07-31T17:30:06+00:00
+CSV: F:\Tests\Frontier\task2\new_hires.csv
+Mapping: F:\Tests\Frontier\task2\role_mapping.yaml
+LLM: dry-run template
+Summary: 3 clean | 2 bad input | 2 mapping flags
+
+========================================================================
+EMPLOYEE: Priya Patel <priya@balto.ai>  (CSV line 2)
+Role / Dept: Senior Engineer / Engineering
+Manager: vp-eng@balto.ai
+Start: 2026-06-01 | Laptop: MacBook Pro 14" | Country: IN
+
+Okta groups (auto-grant candidates):
+  - All-Employees
+  - Google-Workspace-Users
+  - eng-all
+  - eng-github-writers
+  - eng-staging-ssh
+
+Google Workspace license: Business Plus
+Google groups / DLs:
+  - eng@balto.ai
+Shared drives:
+  - Engineering Shared
+
+Iru blueprint: Engineering-Standard
+
+Country considerations:
+  - Laptop ship lead time 10–15 business days; confirm Iru enrollment window with manager.
+  - Prefer India-local data handling for HR files; avoid syncing People Shared Drive contents to personal devices.
+  - Confirm export-control status is N/A for standard SaaS engineer tooling (flag if role gains crypto/export-controlled libs).
+
+REQUIRES MANAGER APPROVAL (do NOT auto-grant):
+  - eng-prod-ssh
+  - aws-power-users
+
+Mapping flags:
+  - (none)
+
+Slack welcome draft:
+  [DRY-RUN TEMPLATE] Hey Priya — welcome to Balto! I'm IT Ops. Your manager is vp-eng@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+
+Mock API calls (payload shapes):
+  [
+    {
+      "system": "okta",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "payload": {
+        "profile": {
+          "firstName": "Priya",
+          "lastName": "Patel",
+          "email": "priya@balto.ai",
+          "login": "priya@balto.ai",
+          "managerId": "vp-eng@balto.ai",
+          "department": "Engineering",
+          "title": "Senior Engineer",
+          "countryCode": "IN"
+        },
+        "groupIds": [
+          "All-Employees",
+          "Google-Workspace-Users",
+          "eng-all",
+          "eng-github-writers",
+          "eng-staging-ssh"
+        ],
+        "activate": true
+      },
+      "notes": "In production: create user, then POST /users/{id}/groups/{groupId} per group."
+    },
+    {
+      "system": "google_workspace",
+      "method": "POST",
+      "path": "directory.googleapis.com/admin/directory/v1/users",
+      "payload": {
+        "primaryEmail": "priya@balto.ai",
+        "name": {
+          "fullName": "Priya Patel"
+        },
+        "password": "{{temporary_password_from_secrets_manager}}",
+        "changePasswordAtNextLogin": true,
+        "orgUnitPath": "/Employees/Engineering"
+      },
+      "license": "Business Plus",
+      "group_memberships": [
+        "eng@balto.ai"
+      ],
+      "shared_drives": [
+        "Engineering Shared"
+      ]
+    },
+    {
+      "system": "iru",
+      "method": "POST",
+      "path": "/api/v1/blueprints/assign",
+      "payload": {
+        "blueprint_name": "Engineering-Standard",
+        "device_user_email": "priya@balto.ai",
+        "laptop_model": "MacBook Pro 14\""
+      }
+    },
+    {
+      "system": "slack",
+      "method": "POST",
+      "path": "chat.postMessage",
+      "payload": {
+        "channel": "#it-approvals",
+        "text": "Manager approval needed for priya@balto.ai: eng-prod-ssh, aws-power-users",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*Elevated access pending*\nHire: Priya Patel (`priya@balto.ai`)\nManager: vp-eng@balto.ai\nGroups: eng-prod-ssh, aws-power-users"
+            }
+          }
+        ]
+      },
+      "notes": "Do NOT auto-add these groups; wait for manager approve action."
+    }
+  ]
+========================================================================
+
+========================================================================
+EMPLOYEE: Marcus Chen <marcus@balto.ai>  (CSV line 3)
+Role / Dept: Account Executive / Sales
+Manager: vp-sales@balto.ai
+Start: 2026-05-18 | Laptop: MacBook Air 13" | Country: US
+
+Okta groups (auto-grant candidates):
+  - All-Employees
+  - Google-Workspace-Users
+  - sales-all
+  - sales-crm-users
+  - sales-outreach
+
+Google Workspace license: Business Standard
+Google groups / DLs:
+  - sales@balto.ai
+Shared drives:
+  - Sales Shared
+
+Iru blueprint: Sales-Standard
+
+Country considerations:
+  - Standard domestic laptop ship (~3–5 business days).
+  - No additional data-residency constraint beyond Balto US primary region.
+
+REQUIRES MANAGER APPROVAL (do NOT auto-grant):
+  - sales-admin
+  - gong-admins
+
+Mapping flags:
+  - (none)
+
+Slack welcome draft:
+  [DRY-RUN TEMPLATE] Hey Marcus — welcome to Balto! I'm IT Ops. Your manager is vp-sales@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+
+Mock API calls (payload shapes):
+  [
+    {
+      "system": "okta",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "payload": {
+        "profile": {
+          "firstName": "Marcus",
+          "lastName": "Chen",
+          "email": "marcus@balto.ai",
+          "login": "marcus@balto.ai",
+          "managerId": "vp-sales@balto.ai",
+          "department": "Sales",
+          "title": "Account Executive",
+          "countryCode": "US"
+        },
+        "groupIds": [
+          "All-Employees",
+          "Google-Workspace-Users",
+          "sales-all",
+          "sales-crm-users",
+          "sales-outreach"
+        ],
+        "activate": true
+      },
+      "notes": "In production: create user, then POST /users/{id}/groups/{groupId} per group."
+    },
+    {
+      "system": "google_workspace",
+      "method": "POST",
+      "path": "directory.googleapis.com/admin/directory/v1/users",
+      "payload": {
+        "primaryEmail": "marcus@balto.ai",
+        "name": {
+          "fullName": "Marcus Chen"
+        },
+        "password": "{{temporary_password_from_secrets_manager}}",
+        "changePasswordAtNextLogin": true,
+        "orgUnitPath": "/Employees/Sales"
+      },
+      "license": "Business Standard",
+      "group_memberships": [
+        "sales@balto.ai"
+      ],
+      "shared_drives": [
+        "Sales Shared"
+      ]
+    },
+    {
+      "system": "iru",
+      "method": "POST",
+      "path": "/api/v1/blueprints/assign",
+      "payload": {
+        "blueprint_name": "Sales-Standard",
+        "device_user_email": "marcus@balto.ai",
+        "laptop_model": "MacBook Air 13\""
+      }
+    },
+    {
+      "system": "slack",
+      "method": "POST",
+      "path": "chat.postMessage",
+      "payload": {
+        "channel": "#it-approvals",
+        "text": "Manager approval needed for marcus@balto.ai: sales-admin, gong-admins",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*Elevated access pending*\nHire: Marcus Chen (`marcus@balto.ai`)\nManager: vp-sales@balto.ai\nGroups: sales-admin, gong-admins"
+            }
+          }
+        ]
+      },
+      "notes": "Do NOT auto-add these groups; wait for manager approve action."
+    }
+  ]
+========================================================================
+
+========================================================================
+EMPLOYEE: Lena Voss <lena@balto.ai>  (CSV line 4)
+Role / Dept: People Ops Manager / People
+Manager: coo@balto.ai
+Start: 2026-05-25 | Laptop: MacBook Pro 14" | Country: DE
+
+Okta groups (auto-grant candidates):
+  - All-Employees
+  - Google-Workspace-Users
+  - people-ops
+  - hr-sensitive-readers
+  - people-managers
+
+Google Workspace license: Business Plus
+Google groups / DLs:
+  - people@balto.ai
+Shared drives:
+  - People Shared
+
+Iru blueprint: People-Standard
+
+Country considerations:
+  - GDPR applies; confirm Workspace data region / EU processing addendum.
+  - Prefer EU-resident processing for HR/People systems where available.
+  - Works council / local employment onboarding checklist may apply — loop People Ops.
+
+REQUIRES MANAGER APPROVAL (do NOT auto-grant):
+  - okta-hr-admins
+  - bamboo-hr-admins
+  - payroll-full-access
+
+Mapping flags:
+  - (none)
+
+Slack welcome draft:
+  [DRY-RUN TEMPLATE] Hey Lena — welcome to Balto! I'm IT Ops. Your manager is coo@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+
+Mock API calls (payload shapes):
+  [
+    {
+      "system": "okta",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "payload": {
+        "profile": {
+          "firstName": "Lena",
+          "lastName": "Voss",
+          "email": "lena@balto.ai",
+          "login": "lena@balto.ai",
+          "managerId": "coo@balto.ai",
+          "department": "People",
+          "title": "People Ops Manager",
+          "countryCode": "DE"
+        },
+        "groupIds": [
+          "All-Employees",
+          "Google-Workspace-Users",
+          "people-ops",
+          "hr-sensitive-readers",
+          "people-managers"
+        ],
+        "activate": true
+      },
+      "notes": "In production: create user, then POST /users/{id}/groups/{groupId} per group."
+    },
+    {
+      "system": "google_workspace",
+      "method": "POST",
+      "path": "directory.googleapis.com/admin/directory/v1/users",
+      "payload": {
+        "primaryEmail": "lena@balto.ai",
+        "name": {
+          "fullName": "Lena Voss"
+        },
+        "password": "{{temporary_password_from_secrets_manager}}",
+        "changePasswordAtNextLogin": true,
+        "orgUnitPath": "/Employees/People"
+      },
+      "license": "Business Plus",
+      "group_memberships": [
+        "people@balto.ai"
+      ],
+      "shared_drives": [
+        "People Shared"
+      ]
+    },
+    {
+      "system": "iru",
+      "method": "POST",
+      "path": "/api/v1/blueprints/assign",
+      "payload": {
+        "blueprint_name": "People-Standard",
+        "device_user_email": "lena@balto.ai",
+        "laptop_model": "MacBook Pro 14\""
+      }
+    },
+    {
+      "system": "slack",
+      "method": "POST",
+      "path": "chat.postMessage",
+      "payload": {
+        "channel": "#it-approvals",
+        "text": "Manager approval needed for lena@balto.ai: okta-hr-admins, bamboo-hr-admins, payroll-full-access",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*Elevated access pending*\nHire: Lena Voss (`lena@balto.ai`)\nManager: coo@balto.ai\nGroups: okta-hr-admins, bamboo-hr-admins, payroll-full-access"
+            }
+          }
+        ]
+      },
+      "notes": "Do NOT auto-add these groups; wait for manager approve action."
+    }
+  ]
+========================================================================
+
+========================================================================
+EMPLOYEE: Jamie O'Neill <jamie@balto.ai>  (CSV line 5)
+Role / Dept: Customer Success Manager / Customer Success
+Manager: MISSING
+Start: 05/20/2026 | Laptop: MacBook Air 13" | Country: IE
+INPUT ISSUES:
+  - missing required field: manager_email
+STATUS: SKIPPED automations — fix feed row before provisioning.
+========================================================================
+
+========================================================================
+EMPLOYEE: Alex Rivera <alex@balto.ai>  (CSV line 6)
+Role / Dept: Staff Engineer / Engineering
+Manager: vp-eng@balto.ai
+Start: 2026-06-15 | Laptop: MacBook Pro 16" | Country: US
+
+Okta groups (auto-grant candidates):
+  - All-Employees
+  - Google-Workspace-Users
+  - eng-all
+  - eng-github-writers
+  - eng-staging-ssh
+
+Google Workspace license: Business Plus
+Google groups / DLs:
+  - eng@balto.ai
+Shared drives:
+  - Engineering Shared
+
+Iru blueprint: Engineering-Standard
+
+Country considerations:
+  - Standard domestic laptop ship (~3–5 business days).
+  - No additional data-residency constraint beyond Balto US primary region.
+
+REQUIRES MANAGER APPROVAL (do NOT auto-grant):
+  - eng-prod-ssh
+  - aws-power-users
+  - okta-app-admins
+
+Mapping flags:
+  - AMBIGUOUS_OKTA_GROUPS: role maps to multiple historically plausible groups ['eng-staff-v2', 'eng-staff-final-NEW']. Do NOT auto-add. IT must pick one and clean up the duplicate in Okta (temp-final-v2 hygiene).
+
+Slack welcome draft:
+  [DRY-RUN TEMPLATE] Hey Alex — welcome to Balto! I'm IT Ops. Your manager is vp-eng@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+
+Mock API calls (payload shapes):
+  [
+    {
+      "system": "okta",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "payload": {
+        "profile": {
+          "firstName": "Alex",
+          "lastName": "Rivera",
+          "email": "alex@balto.ai",
+          "login": "alex@balto.ai",
+          "managerId": "vp-eng@balto.ai",
+          "department": "Engineering",
+          "title": "Staff Engineer",
+          "countryCode": "US"
+        },
+        "groupIds": [
+          "All-Employees",
+          "Google-Workspace-Users",
+          "eng-all",
+          "eng-github-writers",
+          "eng-staging-ssh"
+        ],
+        "activate": true
+      },
+      "notes": "In production: create user, then POST /users/{id}/groups/{groupId} per group."
+    },
+    {
+      "system": "google_workspace",
+      "method": "POST",
+      "path": "directory.googleapis.com/admin/directory/v1/users",
+      "payload": {
+        "primaryEmail": "alex@balto.ai",
+        "name": {
+          "fullName": "Alex Rivera"
+        },
+        "password": "{{temporary_password_from_secrets_manager}}",
+        "changePasswordAtNextLogin": true,
+        "orgUnitPath": "/Employees/Engineering"
+      },
+      "license": "Business Plus",
+      "group_memberships": [
+        "eng@balto.ai"
+      ],
+      "shared_drives": [
+        "Engineering Shared"
+      ]
+    },
+    {
+      "system": "iru",
+      "method": "POST",
+      "path": "/api/v1/blueprints/assign",
+      "payload": {
+        "blueprint_name": "Engineering-Standard",
+        "device_user_email": "alex@balto.ai",
+        "laptop_model": "MacBook Pro 16\""
+      }
+    },
+    {
+      "system": "slack",
+      "method": "POST",
+      "path": "chat.postMessage",
+      "payload": {
+        "channel": "#it-approvals",
+        "text": "Manager approval needed for alex@balto.ai: eng-prod-ssh, aws-power-users, okta-app-admins",
+        "blocks": [
+          {
+            "type": "section",
+            "text": {
+              "type": "mrkdwn",
+              "text": "*Elevated access pending*\nHire: Alex Rivera (`alex@balto.ai`)\nManager: vp-eng@balto.ai\nGroups: eng-prod-ssh, aws-power-users, okta-app-admins"
+            }
+          }
+        ]
+      },
+      "notes": "Do NOT auto-add these groups; wait for manager approve action."
+    }
+  ]
+========================================================================
+
+========================================================================
+EMPLOYEE: Sam Quinn <sam@balto.ai>  (CSV line 7)
+Role / Dept: Growth Hacker / Marketing
+Manager: cmo@balto.ai
+Start: 2026-07-01 | Laptop: MacBook Air 13" | Country: US
+
+Okta groups (auto-grant candidates):
+  - All-Employees
+  - Google-Workspace-Users
+
+Google Workspace license: UNASSIGNED — requires IT review
+Google groups / DLs:
+  - (none)
+Shared drives:
+  - (none)
+
+Iru blueprint: UNASSIGNED — requires IT review
+
+Country considerations:
+  - Standard domestic laptop ship (~3–5 business days).
+  - No additional data-residency constraint beyond Balto US primary region.
+
+REQUIRES MANAGER APPROVAL (do NOT auto-grant):
+  - (none)
+
+Mapping flags:
+  - NO_DEPARTMENT_MAPPING: department 'Marketing' is not in role_mapping.yaml — refusing to invent groups. Add the department or route to IT manually.
+  - NO_ROLE_MAPPING: role 'Growth Hacker' is not in role_mapping.yaml — bail loudly rather than defaulting to a broad group.
+
+Slack welcome draft:
+  [DRY-RUN TEMPLATE] Hey Sam — welcome to Balto! I'm IT Ops. Your manager is cmo@balto.ai. Day-1: enroll in Okta, check #it-help for the checklist, and submit access via the Balto IT Request form (not Slack DMs). Ping me if your laptop MDM enrollment stalls.
+
+Mock API calls (payload shapes):
+  [
+    {
+      "system": "okta",
+      "method": "POST",
+      "path": "/api/v1/users",
+      "payload": {
+        "profile": {
+          "firstName": "Sam",
+          "lastName": "Quinn",
+          "email": "sam@balto.ai",
+          "login": "sam@balto.ai",
+          "managerId": "cmo@balto.ai",
+          "department": "Marketing",
+          "title": "Growth Hacker",
+          "countryCode": "US"
+        },
+        "groupIds": [
+          "All-Employees",
+          "Google-Workspace-Users"
+        ],
+        "activate": true
+      },
+      "notes": "In production: create user, then POST /users/{id}/groups/{groupId} per group."
+    },
+    {
+      "system": "google_workspace",
+      "method": "POST",
+      "path": "directory.googleapis.com/admin/directory/v1/users",
+      "payload": {
+        "primaryEmail": "sam@balto.ai",
+        "name": {
+          "fullName": "Sam Quinn"
+        },
+        "password": "{{temporary_password_from_secrets_manager}}",
+        "changePasswordAtNextLogin": true,
+        "orgUnitPath": "/Employees/Marketing"
+      },
+      "license": "UNASSIGNED \u2014 requires IT review",
+      "group_memberships": [],
+      "shared_drives": []
+    },
+    {
+      "system": "iru",
+      "method": "POST",
+      "path": "/api/v1/blueprints/assign",
+      "payload": {
+        "blueprint_name": "UNASSIGNED \u2014 requires IT review",
+        "device_user_email": "sam@balto.ai",
+        "laptop_model": "MacBook Air 13\""
+      }
+    }
+  ]
+========================================================================
+
+========================================================================
+EMPLOYEE: Casey Núñez <casey@balto.ai>  (CSV line 8)
+Role / Dept: Senior Engineer / Engineering
+Manager: vp-eng@balto.ai
+Start: not-a-date | Laptop: MacBook Pro 14" | Country: CA
+INPUT ISSUES:
+  - unparseable start_date 'not-a-date' (expected ISO YYYY-MM-DD or common locale formats)
+STATUS: SKIPPED automations — fix feed row before provisioning.
+========================================================================
